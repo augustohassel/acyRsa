@@ -7,9 +7,9 @@
 acyrsa_connection(token, base_url)
 }
 \arguments{
-\item{token}{String. Obtained with \code{\link{acyrsa_login}}}
+\item{token}{String. **Mandaroty** Obtained with \code{\link{acyrsa_login}}}
 
-\item{base_url}{String. URL given by  \code{\link{acyrsa_login}} or known by the client.}
+\item{base_url}{String. **Mandaroty** URL given by  \code{\link{acyrsa_login}} or known by the client.}
 }
 \value{
 Creates a 'acyrsa_connection' S4 Object

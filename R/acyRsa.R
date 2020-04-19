@@ -9,8 +9,8 @@
 #' @import jsonlite
 #' @import methods
 #' @import tibble
-#' @importFrom glue glue
+#' @importFrom glue glue glue_collapse
 #' @importFrom magrittr %>%
-#' @importFrom purrr simplify_all
+#' @importFrom purrr simplify_all some
 #' @importFrom tidyr unnest separate replace_na
 "_PACKAGE"

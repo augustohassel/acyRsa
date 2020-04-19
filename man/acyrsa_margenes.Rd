@@ -7,7 +7,7 @@
 acyrsa_margenes(connection, date = Sys.Date())
 }
 \arguments{
-\item{connection}{S4. Formal acyRsaConnection class object}
+\item{connection}{S4. **Mandaroty** Formal acyRsaConnection class object}
 
 \item{date}{String. Date with format '\%Y-\%m-\%d'.}
 }

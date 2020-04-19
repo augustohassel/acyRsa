@@ -7,11 +7,11 @@
 acyrsa_login(user, pass, env)
 }
 \arguments{
-\item{user}{String. User Name}
+\item{user}{String. **Mandaroty** User Name}
 
-\item{pass}{String. Password}
+\item{pass}{String. **Mandaroty** Password}
 
-\item{env}{String. Wich environment are you going to connect:
+\item{env}{String. **Mandaroty** Wich environment are you going to connect:
 \itemize{
 \item testing: 'demoapi'
 \item production: 'api'

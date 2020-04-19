@@ -7,7 +7,7 @@
 acyrsa_garantias_integradas(connection, cim, alyc, date = Sys.Date())
 }
 \arguments{
-\item{connection}{S4. Formal acyRsaConnection class object}
+\item{connection}{S4. **Mandaroty** Formal acyRsaConnection class object}
 
 \item{cim}{Integer. Compensation Account Code}
 
