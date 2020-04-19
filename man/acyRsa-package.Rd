@@ -11,7 +11,7 @@ Provides a convenient wrapper for consuming data from ACyRSA's BackOffice API.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https:githun.com/augustohassel/acyRsa}
+  \item \url{https:github.com/augustohassel/acyRsa}
 }
 
 }

@@ -7,5 +7,15 @@ Description: Provides a convenient wrapper for consuming data from ACyRSA's Back
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https:githun.com/augustohassel/acyRsa
+URL: https:github.com/augustohassel/acyRsa
 RoxygenNote: 7.1.0
+Imports: 
+    dplyr,
+    httr,
+    jsonlite,
+    methods
+Suggests: 
+    glue,
+    magrittr,
+    purrr,
+    tidyr

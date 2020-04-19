@@ -1,16 +1,20 @@
 #' @export token
 #' @export base_url
+#' @export token<-
+#' @export base_url<-
 NULL
 
 # Connection Class
 setClass("acyRsaConnection",
          slots = c(
            token = "character",
-           base_url = "character"
+           base_url = "character",
+           valid_until = "character"
          ),
          prototype = list(
            token = NA_character_,
-           base_url = NA_character_
+           base_url = NA_character_,
+           valid_until = as.character(Sys.Date())
          )
 )
 
@@ -26,6 +30,7 @@ setValidity("acyRsaConnection", function(object){
 
 setGeneric("token", function(x) standardGeneric("token"))
 setMethod("token", "acyRsaConnection", function(x) x@token)
+
 setGeneric("token<-", function(x, value) standardGeneric("token<-"))
 setMethod("token<-", "acyRsaConnection", function(x, value) {
   x@token <- value
@@ -35,6 +40,7 @@ setMethod("token<-", "acyRsaConnection", function(x, value) {
 
 setGeneric("base_url", function(x) standardGeneric("base_url"))
 setMethod("base_url", "acyRsaConnection", function(x) x@base_url)
+
 setGeneric("base_url<-", function(x, value) standardGeneric("base_url<-"))
 setMethod("base_url<-", "acyRsaConnection", function(x, value) {
   x@base_url <- value

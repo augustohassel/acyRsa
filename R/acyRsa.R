@@ -7,9 +7,10 @@
 #' @import dplyr
 #' @import httr
 #' @import jsonlite
-#' @import lubridate
+#' @import methods
 #' @import tibble
-#' @import tidyr
 #' @importFrom glue glue
 #' @importFrom magrittr %>%
+#' @importFrom purrr simplify_all
+#' @importFrom tidyr unnest separate replace_na
 "_PACKAGE"
