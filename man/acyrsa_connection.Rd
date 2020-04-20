@@ -22,6 +22,7 @@ You can use accesors to get information about the Object by using:
 \itemize{
 \item \code{token(conn)}
 \item \code{base_url(conn)}
+\item \code{valid_until(conn)}
 }
 }
 \examples{
