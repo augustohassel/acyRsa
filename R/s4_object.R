@@ -2,6 +2,7 @@
 #' @export base_url
 #' @export token<-
 #' @export base_url<-
+#' @export valid_until
 NULL
 
 # Connection Class
@@ -14,7 +15,7 @@ setClass("acyRsaConnection",
          prototype = list(
            token = NA_character_,
            base_url = NA_character_,
-           valid_until = as.character(Sys.Date())
+           valid_until = NA_character_
          )
 )
 
@@ -47,3 +48,6 @@ setMethod("base_url<-", "acyRsaConnection", function(x, value) {
   validObject(x)
   x
 })
+
+setGeneric("valid_until", function(x) standardGeneric("valid_until"))
+setMethod("valid_until", "acyRsaConnection", function(x) x@valid_until)

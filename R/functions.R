@@ -26,7 +26,7 @@ NULL
 #' @examples
 #' \dontrun{conn <- acyrsa_connection(token = "1234", base_url = "https://api.anywhereportfolio.com.ar/")}
 acyrsa_connection <- function(token, base_url) {
-  new("acyRsaConnection", token = token, base_url = base_url)
+  new("acyRsaConnection", token = token, base_url = base_url, valid_until = as.character(Sys.Date()))
 }
 
 #' @title Log-In Method
@@ -281,6 +281,9 @@ acyrsa_cotizaciones <- function(connection, entry_type, date, Symbol, CFICode, M
 
     return(data)
 
+  } else if (content(query)$Code == 200 & length(content(query)$Value) == 0) {
+    warning("No data available...")
+    NULL
   } else {
     warning("Something went wrong...")
     NULL
