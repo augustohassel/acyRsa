@@ -42,4 +42,4 @@ initiative.
 
   - [Augusto Hassel](https://github.com/augustohassel)
 
-<a href="https://www.buymeacoffee.com/augustohassel" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/augustohassel" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-blue.png" alt="Buy Me A Coffee" style="height: 38px !important;width: 160px !important;" ></a>
