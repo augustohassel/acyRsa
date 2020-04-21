@@ -4,14 +4,7 @@
 
   <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-  ```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-options(tibble.print_min = 5, tibble.print_max = 5)
+```{r, include = FALSE}
 ```
 
 # acyRsa
@@ -46,8 +39,6 @@ Development of this software was driven by [HasselPunk](https://www.hasselpunk.c
 #### Author/Maintainer
 - [Augusto Hassel](https://github.com/augustohassel)
 
-<p align="left">
-  <a href="https://www.buymeacoffee.com/augustohassel" target="_blank">
-    <img src="https://cdn.buymeacoffee.com/buttons/arial-blue.png" alt="Buy Me A Coffee" style="max-width: 20%"/>
-  </a>
-</p>
+
+<a href="https://www.buymeacoffee.com/augustohassel" target="_blank"><img src='https://cdn.buymeacoffee.com/buttons/arial-blue.png' alt="Buy Me A Coffee" align="left" height="38"/></a>
+
