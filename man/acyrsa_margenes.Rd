@@ -7,7 +7,7 @@
 acyrsa_margenes(connection, date = Sys.Date())
 }
 \arguments{
-\item{connection}{S4. **Mandaroty** Formal acyRsaConnection class object}
+\item{connection}{S4. \strong{Mandatory} Formal acyRsaConnection class object}
 
 \item{date}{String. Date with format '\%Y-\%m-\%d'.}
 }
@@ -15,5 +15,5 @@ acyrsa_margenes(connection, date = Sys.Date())
 Data Frame
 }
 \description{
-\code{acsa_margenes} method it's used to query the required margins for a certain date.
+`acyrsa_margenes()` it's used to query the required margins for a certain date.
 }

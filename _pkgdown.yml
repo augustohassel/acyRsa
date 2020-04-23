@@ -1,0 +1,25 @@
+destination: docs
+
+development:
+  mode: auto
+
+authors:
+  Augusto Hassel:
+    href: http://www.hasselpunk.com
+
+repo:
+  home: https://github.com/augustohassel/acyRsa/
+  issue: https://github.com/augustohassel/acyRsa/issues/
+  user: https://github.com/augustohassel/
+
+reference:
+- title: Authentication
+  desc:  Methods to obtain a valid token and/or generate a valid acyRsaConnection object.
+- contents:
+  - acyrsa_connection
+  - acyrsa_login
+- title: Post Trade
+- contents:
+  - acyrsa_cotizaciones
+  - acyrsa_margenes
+  - acyrsa_garantias_integradas

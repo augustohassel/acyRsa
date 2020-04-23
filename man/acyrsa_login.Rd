@@ -2,34 +2,47 @@
 % Please edit documentation in R/functions.R
 \name{acyrsa_login}
 \alias{acyrsa_login}
-\title{Log-In Method}
+\title{Log-in Method}
 \usage{
 acyrsa_login(user, pass, env)
 }
 \arguments{
-\item{user}{String. **Mandaroty** User Name}
+\item{user}{String. \strong{Mandatory} User Name}
 
-\item{pass}{String. **Mandaroty** Password}
+\item{pass}{String. \strong{Mandatory} Password}
 
-\item{env}{String. **Mandaroty** Wich environment are you going to connect:
+\item{env}{String. \strong{Mandatory} Wich environment are you going to connect:
 \itemize{
-\item testing: 'demoapi'
-\item production: 'api'
+\item 'demoapi' for testing
+\item 'api' for production
 }}
 }
 \value{
-Creates a 'acyRsaConnection' S4 Object with a token and a base_url. The token is only valid for a day.
+Creates an 'acyRsaConnection' S4 Object with a token and a base_url.
 }
 \description{
-\code{acyrsa_login} method it's used to Log-In and to obtained a valid token to be used in all requests to the API.
+`acyrsa_login()` it's used to Log-in and obtained a valid token tthat then should be used in all requests to the API.
 }
 \note{
+The token is valid only for a day.
+}
+\section{Accesors}{
+
 You can use accesors to get information about the Object by using:
 \itemize{
 \item \code{token(conn)}
 \item \code{base_url(conn)}
+\item \code{valid_until(conn)}
 }
 }
+
 \examples{
-\dontrun{conn <- acyrsa_login(user = "asd", pass = "xxx", env = "api")}
+\dontrun{
+conn <- acyrsa_login(user = "asd", pass = "xxx", env = "api")
 }
+}
+\seealso{
+Other connection functions: 
+\code{\link{acyrsa_connection}()}
+}
+\concept{connection functions}

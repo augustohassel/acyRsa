@@ -2,22 +2,23 @@
 % Please edit documentation in R/functions.R
 \name{acyrsa_connection}
 \alias{acyrsa_connection}
-\title{Create acyRsa Connection Object}
+\title{cyRsaConnection Object}
 \usage{
 acyrsa_connection(token, base_url)
 }
 \arguments{
-\item{token}{String. **Mandaroty** Obtained with \code{\link{acyrsa_login}}}
+\item{token}{String. \strong{Mandatory} Obtained with \code{\link{acyrsa_login}}}
 
-\item{base_url}{String. **Mandaroty** URL given by  \code{\link{acyrsa_login}} or known by the client.}
+\item{base_url}{String. \strong{Mandatory} URL given to \code{\link{acyrsa_login}} to initiate the connection.}
 }
 \value{
-Creates a 'acyrsa_connection' S4 Object
+Creates an 'acyRsaConnection' S4 Object
 }
 \description{
-\code{acyrsa_connection} creates a New Connection Object. It must be created manually when using de API with the token authentication.
+`acyrsa_connection()` creates a New Connection Object. It should be created manually when saving the token outside the application.
 }
-\note{
+\section{Accesors}{
+
 You can use accesors to get information about the Object by using:
 \itemize{
 \item \code{token(conn)}
@@ -25,6 +26,14 @@ You can use accesors to get information about the Object by using:
 \item \code{valid_until(conn)}
 }
 }
+
 \examples{
-\dontrun{conn <- acyrsa_connection(token = "1234", base_url = "https://api.anywhereportfolio.com.ar/")}
+\dontrun{
+conn <- acyrsa_connection(token = "1234", base_url = "https://api.anywhereportfolio.com.ar/")
 }
+}
+\seealso{
+Other connection functions: 
+\code{\link{acyrsa_login}()}
+}
+\concept{connection functions}

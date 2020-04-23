@@ -3,10 +3,14 @@
 
 # acyRsa
 
-## Overview
+<!-- badges: start -->
 
-This package lets you access ACyRSA’s API using R. Having this will
-enable to integrate ACyRSA’s data more easily into R workflows.
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+<!-- badges: end -->
+
+This package lets you access ACyRSA’s API using R. This will enable you
+to integrate ACyRSA’s data more easily into your R workflow.
 
 ## Installation
 
@@ -15,19 +19,11 @@ At the moment `acyRsa` is only available through GitHub usind
 
 #### Installing with `devtools`
 
-1.  In R install the package `devtools`.
-
-<!-- end list -->
-
 ``` r
+# 1. In R install the package `devtools`.
 install.packages("devtools")
-```
 
-2.  Once `devtools` is installed.
-
-<!-- end list -->
-
-``` r
+# 2. Once `devtools` is installed, install `acyRsa`
 library(devtools)
 devtools::install_github("augustohassel/acyRsa")
 ```

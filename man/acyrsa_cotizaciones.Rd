@@ -18,20 +18,20 @@ acyrsa_cotizaciones(
 )
 }
 \arguments{
-\item{connection}{S4. **Mandaroty** Formal acyRsaConnection class object}
+\item{connection}{S4. \strong{Mandatory} Formal acyRsaConnection class object}
 
-\item{entry_type}{String. **Mandaroty** Vector of one or many values. See allowed values:
+\item{entry_type}{String. \strong{Mandatory} Vector of one or many values. See allowed values:
 \itemize{
-\item **2** = Tick By Tick
-\item **3** = Index Value
-\item **5** = Clossing Prices
-\item **6** = Settlement Price
-\item **B** = Trade Volume
-\item **C** = Open Interest
-\item **D** = Composite Underlying Price
+\item \strong{2} = Tick By Tick
+\item \strong{3} = Index Value
+\item \strong{5} = Clossing Prices
+\item \strong{6} = Settlement Price
+\item \strong{B} = Trade Volume
+\item \strong{C} = Open Interest
+\item \strong{D} = Composite Underlying Price
 }}
 
-\item{date}{String. **Mandaroty** Clearing Business Day with format '\%Y-\%m-\%d'.}
+\item{date}{String. \strong{Mandatory} Clearing Business Day with format '\%Y-\%m-\%d'.}
 
 \item{Symbol}{String. Contract Symbol.}
 
@@ -39,45 +39,47 @@ acyrsa_cotizaciones(
 
 \item{MarketID}{String. See allowed values:
 \itemize{
-\item **ROFX** = Matba Rofex
-\item **XMAB** = MAE
+\item \strong{ROFX} = Matba Rofex
+\item \strong{XMAB} = MAE
 }}
 
 \item{MarketSegmentID}{String. See allowed values:
 \itemize{
-\item **DDF** = Financial
-\item **DDA** = Agricultural
-\item **DUAL** = Others
+\item \strong{DDF} = Financial
+\item \strong{DDA} = Agricultural
+\item \strong{DUAL} = Others
 }}
 
 \item{SecurityGroup}{String.}
 
 \item{SecurityType}{String. See allowed values:
 \itemize{
-\item **FUT** = Future
-\item **OPT** = Option
-\item **FXSPOT** = FX Spot
-\item **CFD** = Contract for differences
-\item **CS** = Common Stock
-\item **MF** = Mutual Fund
-\item **SECLOAN** = Security Loan
-\item **CD** = Certificate of Deposit
-\item **GO** = General Obligation Bonds
-\item **FXNDF** = Non-deliverable forward
-\item **TD** = Time Deposit
+\item \strong{FUT} = Future
+\item \strong{OPT} = Option
+\item \strong{FXSPOT} = FX Spot
+\item \strong{CFD} = Contract for differences
+\item \strong{CS} = Common Stock
+\item \strong{MF} = Mutual Fund
+\item \strong{SECLOAN} = Security Loan
+\item \strong{CD} = Certificate of Deposit
+\item \strong{GO} = General Obligation Bonds
+\item \strong{FXNDF} = Non-deliverable forward
+\item \strong{TD} = Time Deposit
 }}
 
 \item{SecurityIDSource}{String. See allowed values:
 \itemize{
-\item **4** = ISIN Number
+\item \strong{4} = ISIN Number
 }}
 }
 \value{
 Data Frame
 }
 \description{
-\code{acyrsa_cotizaciones} method allows to access Market Data from ACyRSA
+`acyrsa_cotizaciones()` it's used to access Market Data from ACyRSA
 }
 \examples{
-\dontrun{acyrsa_cotizaciones(connection = conn, entry_type = 6, date = "2020-04-17", SecurityType = "FUT")}
+\dontrun{
+acyrsa_cotizaciones(connection = conn, entry_type = 6, date = "2020-04-17", SecurityType = "FUT")
+}
 }

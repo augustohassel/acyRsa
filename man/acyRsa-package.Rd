@@ -8,13 +8,6 @@
 \description{
 Provides a convenient wrapper for consuming data from ACyRSA's BackOffice API.
 }
-\seealso{
-Useful links:
-\itemize{
-  \item \url{https:github.com/augustohassel/acyRsa}
-}
-
-}
 \author{
 \strong{Maintainer}: Augusto Hassel \email{augusto.hassel@gmail.com}
 

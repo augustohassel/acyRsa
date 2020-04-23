@@ -7,7 +7,7 @@
 acyrsa_garantias_integradas(connection, cim, alyc, date = Sys.Date())
 }
 \arguments{
-\item{connection}{S4. **Mandaroty** Formal acyRsaConnection class object}
+\item{connection}{S4. \strong{Mandatory} Formal acyRsaConnection class object}
 
 \item{cim}{Integer. Compensation Account Code}
 
@@ -19,5 +19,5 @@ acyrsa_garantias_integradas(connection, cim, alyc, date = Sys.Date())
 Data Frame
 }
 \description{
-\code{acyrsa_garantias_integradas} method it's used to query the list of integrated garantees from our clients in ACyRSA.
+`acyrsa_garantias_integradas()` it's used to query the list of integrated garantees from our clients in ACyRSA.
 }

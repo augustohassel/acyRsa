@@ -8,50 +8,63 @@ NULL
 #' @include s4_object.R
 #' NULL
 
-#' @title Create acyRsa Connection Object
+#' @title cyRsaConnection Object
 #'
-#' @description \code{acyrsa_connection} creates a New Connection Object. It must be created manually when using de API with the token authentication.
+#' @description `acyrsa_connection()` creates a New Connection Object. It should be created manually when saving the token outside the application.
 #'
-#' @param token String. **Mandaroty** Obtained with \code{\link{acyrsa_login}}
-#' @param base_url String. **Mandaroty** URL given by  \code{\link{acyrsa_login}} or known by the client.
+#' @param token String. \strong{Mandatory} Obtained with \code{\link{acyrsa_login}}
+#' @param base_url String. \strong{Mandatory} URL given to \code{\link{acyrsa_login}} to initiate the connection.
 #'
-#' @return Creates a 'acyrsa_connection' S4 Object
+#' @return Creates an 'acyRsaConnection' S4 Object
 #'
-#' @note You can use accesors to get information about the Object by using:
+#' @section Accesors:
+#' You can use accesors to get information about the Object by using:
 #' \itemize{
 #' \item \code{token(conn)}
 #' \item \code{base_url(conn)}
 #' \item \code{valid_until(conn)}
 #' }
 #'
+#' @family connection functions
+#'
 #' @examples
-#' \dontrun{conn <- acyrsa_connection(token = "1234", base_url = "https://api.anywhereportfolio.com.ar/")}
+#' \dontrun{
+#' conn <- acyrsa_connection(token = "1234", base_url = "https://api.anywhereportfolio.com.ar/")
+#' }
 acyrsa_connection <- function(token, base_url) {
   new("acyRsaConnection", token = token, base_url = base_url, valid_until = as.character(Sys.Date()))
 }
 
-#' @title Log-In Method
+#' @title Log-in Method
 #'
-#' @description \code{acyrsa_login} method it's used to Log-In and to obtained a valid token to be used in all requests to the API.
+#' @description `acyrsa_login()` it's used to Log-in and obtained a valid token tthat then should be used in all requests to the API.
 #'
-#' @param user String. **Mandaroty** User Name
-#' @param pass String. **Mandaroty** Password
-#' @param env String. **Mandaroty** Wich environment are you going to connect:
+#' @param user String. \strong{Mandatory} User Name
+#' @param pass String. \strong{Mandatory} Password
+#' @param env String. \strong{Mandatory} Wich environment are you going to connect:
 #' \itemize{
-#' \item testing: 'demoapi'
-#' \item production: 'api'
+#' \item 'demoapi' for testing
+#' \item 'api' for production
 #' }
 #'
-#' @return Creates a 'acyRsaConnection' S4 Object with a token and a base_url. The token is only valid for a day.
+#' @return Creates an 'acyRsaConnection' S4 Object with a token and a base_url.
 #'
-#' @note You can use accesors to get information about the Object by using:
+#' @note The token is valid only for a day.
+#'
+#' @section Accesors:
+#' You can use accesors to get information about the Object by using:
 #' \itemize{
 #' \item \code{token(conn)}
 #' \item \code{base_url(conn)}
+#' \item \code{valid_until(conn)}
 #' }
 #'
+#' @family connection functions
+#'
 #' @examples
-#' \dontrun{conn <- acyrsa_login(user = "asd", pass = "xxx", env = "api")}
+#' \dontrun{
+#' conn <- acyrsa_login(user = "asd", pass = "xxx", env = "api")
+#' }
 acyrsa_login <- function(user, pass, env) {
   if (missing(user) | missing(pass)) stop("Username and Password are needed.")
   if (missing(env)) stop("Environment is needed.")
@@ -85,9 +98,9 @@ acyrsa_login <- function(user, pass, env) {
 
 #' @title Margin Requirement Report
 #'
-#' @description \code{acsa_margenes} method it's used to query the required margins for a certain date.
+#' @description `acyrsa_margenes()` it's used to query the required margins for a certain date.
 #'
-#' @param connection S4. **Mandaroty** Formal acyRsaConnection class object
+#' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
 #' @param date String. Date with format '\%Y-\%m-\%d'.
 #'
 #' @return Data Frame
@@ -132,9 +145,9 @@ acyrsa_margenes <- function(connection, date = Sys.Date()) {
 
 #' @title Integrated Guarantees
 #'
-#' @description \code{acyrsa_garantias_integradas} method it's used to query the list of integrated garantees from our clients in ACyRSA.
+#' @description `acyrsa_garantias_integradas()` it's used to query the list of integrated garantees from our clients in ACyRSA.
 #'
-#' @param connection S4. **Mandaroty** Formal acyRsaConnection class object
+#' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
 #' @param date String. Date with format '\%Y-\%m-\%d'.
 #' @param cim Integer. Compensation Account Code
 #' @param alyc Integer.Clearing Member Code
@@ -181,57 +194,59 @@ acyrsa_garantias_integradas <- function(connection, cim, alyc, date = Sys.Date()
 
 #' @title Market Data
 #'
-#' @description \code{acyrsa_cotizaciones} method allows to access Market Data from ACyRSA
+#' @description `acyrsa_cotizaciones()` it's used to access Market Data from ACyRSA
 #'
-#' @param connection S4. **Mandaroty** Formal acyRsaConnection class object
-#' @param entry_type String. **Mandaroty** Vector of one or many values. See allowed values:
+#' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
+#' @param entry_type String. \strong{Mandatory} Vector of one or many values. See allowed values:
 #' \itemize{
-#' \item **2** = Tick By Tick
-#' \item **3** = Index Value
-#' \item **5** = Clossing Prices
-#' \item **6** = Settlement Price
-#' \item **B** = Trade Volume
-#' \item **C** = Open Interest
-#' \item **D** = Composite Underlying Price
+#' \item \strong{2} = Tick By Tick
+#' \item \strong{3} = Index Value
+#' \item \strong{5} = Clossing Prices
+#' \item \strong{6} = Settlement Price
+#' \item \strong{B} = Trade Volume
+#' \item \strong{C} = Open Interest
+#' \item \strong{D} = Composite Underlying Price
 #' }
-#' @param date String. **Mandaroty** Clearing Business Day with format '\%Y-\%m-\%d'.
+#' @param date String. \strong{Mandatory} Clearing Business Day with format '\%Y-\%m-\%d'.
 #' @param Symbol String. Contract Symbol.
 #' @param CFICode String.
 #' @param MarketID String. See allowed values:
 #' \itemize{
-#' \item **ROFX** = Matba Rofex
-#' \item **XMAB** = MAE
+#' \item \strong{ROFX} = Matba Rofex
+#' \item \strong{XMAB} = MAE
 #' }
 #' @param MarketSegmentID String. See allowed values:
 #' \itemize{
-#' \item **DDF** = Financial
-#' \item **DDA** = Agricultural
-#' \item **DUAL** = Others
+#' \item \strong{DDF} = Financial
+#' \item \strong{DDA} = Agricultural
+#' \item \strong{DUAL} = Others
 #' }
 #' @param SecurityGroup String.
 #' @param SecurityType String. See allowed values:
 #' \itemize{
-#' \item **FUT** = Future
-#' \item **OPT** = Option
-#' \item **FXSPOT** = FX Spot
-#' \item **CFD** = Contract for differences
-#' \item **CS** = Common Stock
-#' \item **MF** = Mutual Fund
-#' \item **SECLOAN** = Security Loan
-#' \item **CD** = Certificate of Deposit
-#' \item **GO** = General Obligation Bonds
-#' \item **FXNDF** = Non-deliverable forward
-#' \item **TD** = Time Deposit
+#' \item \strong{FUT} = Future
+#' \item \strong{OPT} = Option
+#' \item \strong{FXSPOT} = FX Spot
+#' \item \strong{CFD} = Contract for differences
+#' \item \strong{CS} = Common Stock
+#' \item \strong{MF} = Mutual Fund
+#' \item \strong{SECLOAN} = Security Loan
+#' \item \strong{CD} = Certificate of Deposit
+#' \item \strong{GO} = General Obligation Bonds
+#' \item \strong{FXNDF} = Non-deliverable forward
+#' \item \strong{TD} = Time Deposit
 #' }
 #' @param SecurityIDSource String. See allowed values:
 #' \itemize{
-#' \item **4** = ISIN Number
+#' \item \strong{4} = ISIN Number
 #' }
 #'
 #' @return Data Frame
 #'
 #' @examples
-#' \dontrun{acyrsa_cotizaciones(connection = conn, entry_type = 6, date = "2020-04-17", SecurityType = "FUT")}
+#' \dontrun{
+#' acyrsa_cotizaciones(connection = conn, entry_type = 6, date = "2020-04-17", SecurityType = "FUT")
+#' }
 acyrsa_cotizaciones <- function(connection, entry_type, date, Symbol, CFICode, MarketID, MarketSegmentID, SecurityGroup, SecurityType, SecurityIDSource) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
@@ -291,9 +306,3 @@ acyrsa_cotizaciones <- function(connection, entry_type, date, Symbol, CFICode, M
   }
 
 }
-
-
-
-
-
-
