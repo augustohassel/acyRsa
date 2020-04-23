@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# acyRsa
+# acyRsa <img src='man/figures/logo_acyRsa.png' align="right" height="139"/>
 
 <!-- badges: start -->
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# acyRsa
+# acyRsa <img src='man/figures/logo_acyRsa.png' align="right" height="139"/>
 
 <!-- badges: start -->
 
