@@ -83,13 +83,16 @@ acyrsa_login <- function(user, pass, env) {
     warn_for_status(query)
     NULL
   } else if (content(query)$Code == 200) {
+    message(glue("Succesfully connected with rRofex to {base_url}..."))
 
-    message_for_status(query)
-    message("\nSuccesfully connected to API BO...")
     invisible(acyrsa_connection(token = content(query)$Value, base_url = base_url))
 
   } else {
-    warning("Something went wrong...")
+    message(glue("Something went wrong...
+
+                 Error: {query}
+
+                 Check function's arguments"))
     NULL
   }
 
@@ -179,7 +182,8 @@ acyrsa_garantias_integradas <- function(connection, cim, alyc, date = Sys.Date()
 
     data <- data %>%
       mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
-      mutate_all(., unlist) %>% as_tibble() %>%
+      mutate_all(., unlist) %>%
+      as_tibble() %>%
       separate(col = Party,
                into = c("CompensationAccountCode", "Comitente"), sep = "\\\\")
 
