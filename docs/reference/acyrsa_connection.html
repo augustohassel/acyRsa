@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>cyRsaConnection Object — acyrsa_connection • acyRsa</title>
+<title>Create rRofex Connection Object — acyrsa_connection • acyRsa</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="cyRsaConnection Object — acyrsa_connection" />
-<meta property="og:description" content="`acyrsa_connection()` creates a New Connection Object. It should be created manually when saving the token outside the application." />
+<meta property="og:title" content="Create rRofex Connection Object — acyrsa_connection" />
+<meta property="og:description" content="rRofex_connection creates a New Connection Object." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">acyRsa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
 
@@ -111,16 +111,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>cyRsaConnection Object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/augustohassel/acyRsa/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
+    <h1>Create rRofex Connection Object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/augustohassel/acyRsa/blob/master/R/s4_object.R'><code>R/s4_object.R</code></a></small>
     <div class="hidden name"><code>acyrsa_connection.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>`acyrsa_connection()` creates a New Connection Object. It should be created manually when saving the token outside the application.</p>
+    <p><code>rRofex_connection</code> creates a New Connection Object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>acyrsa_connection</span>(<span class='no'>token</span>, <span class='no'>base_url</span>)</pre>
+    <pre class="usage"><span class='fu'>acyrsa_connection</span>(<span class='no'>token</span>, <span class='no'>base_url</span>, <span class='no'>user_name</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,32 +131,28 @@
     </tr>
     <tr>
       <th>base_url</th>
-      <td><p>String. <strong>Mandatory</strong> URL given to <code><a href='acyrsa_login.html'>acyrsa_login</a></code> to initiate the connection.</p></td>
+      <td><p>String. <strong>Mandatory</strong> URL given by  <code><a href='acyrsa_login.html'>acyrsa_login</a></code> or known by the client.</p></td>
+    </tr>
+    <tr>
+      <th>user_name</th>
+      <td><p>character. User Name</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Creates an 'acyRsaConnection' S4 Object</p>
-    <h2 class="hasAnchor" id="accesors"><a class="anchor" href="#accesors"></a>Accesors</h2>
+    <p>S4 acyRsaConnection object.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    
-
-<p>You can use accesors to get information about the Object by using:</p><ul>
-<li><p><code>token(conn)</code></p></li>
-<li><p><code>base_url(conn)</code></p></li>
-<li><p><code>valid_until(conn)</code></p></li>
+    <p>You can use accessors to get information about the Object by using:</p><ul>
+<li><p><code><a href='acyRsaConnection-method.html'>token(conn)</a></code></p></li>
+<li><p><code><a href='acyRsaConnection-method.html'>base_url(conn)</a></code></p></li>
+<li><p><code><a href='acyRsaConnection-method.html'>valid_until(conn)</a></code></p></li>
+<li><p><code><a href='acyRsaConnection-method.html'>agent(conn)</a></code></p></li>
+<li><p><code><a href='acyRsaConnection-method.html'>user_name(conn)</a></code></p></li>
 </ul>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other connection functions: 
-<code><a href='acyrsa_login.html'>acyrsa_login</a>()</code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>conn</span> <span class='kw'>&lt;-</span> <span class='fu'>acyrsa_connection</span>(<span class='kw'>token</span> <span class='kw'>=</span> <span class='st'>"1234"</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='st'>"https://api.anywhereportfolio.com.ar/"</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
