@@ -4,7 +4,7 @@
 \name{acyRsa-package}
 \alias{acyRsa}
 \alias{acyRsa-package}
-\title{acyRsa: Interface to ACyRSA's API BO}
+\title{acyRsa: Interface to ACyRSA's API}
 \description{
 Provides a convenient wrapper for consuming data from ACyRSA's BackOffice API.
 }

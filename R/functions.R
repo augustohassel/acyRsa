@@ -1,4 +1,3 @@
-#' @export acyrsa_connection
 #' @export acyrsa_login
 #' @export acyrsa_margenes
 #' @export acyrsa_garantias_integradas
@@ -8,33 +7,6 @@ NULL
 #' @include s4_object.R
 #' NULL
 
-#' @title cyRsaConnection Object
-#'
-#' @description `acyrsa_connection()` creates a New Connection Object. It should be created manually when saving the token outside the application.
-#'
-#' @param token String. \strong{Mandatory} Obtained with \code{\link{acyrsa_login}}
-#' @param base_url String. \strong{Mandatory} URL given to \code{\link{acyrsa_login}} to initiate the connection.
-#'
-#' @return Creates an 'acyRsaConnection' S4 Object
-#'
-#' @section Accesors:
-#' You can use accesors to get information about the Object by using:
-#' \itemize{
-#' \item \code{token(conn)}
-#' \item \code{base_url(conn)}
-#' \item \code{valid_until(conn)}
-#' }
-#'
-#' @family connection functions
-#'
-#' @examples
-#' \dontrun{
-#' conn <- acyrsa_connection(token = "1234", base_url = "https://api.anywhereportfolio.com.ar/")
-#' }
-acyrsa_connection <- function(token, base_url) {
-  new("acyRsaConnection", token = token, base_url = base_url, valid_until = as.character(Sys.Date()))
-}
-
 #' @title Log-in Method
 #'
 #' @description `acyrsa_login()` it's used to Log-in and obtained a valid token tthat then should be used in all requests to the API.
@@ -43,8 +15,8 @@ acyrsa_connection <- function(token, base_url) {
 #' @param pass String. \strong{Mandatory} Password
 #' @param env String. \strong{Mandatory} Wich environment are you going to connect:
 #' \itemize{
-#' \item 'demoapi' for testing
-#' \item 'api' for production
+#' \item \strong{demoapi} - for testing
+#' \item \strong{api} - for production
 #' }
 #'
 #' @return Creates an 'acyRsaConnection' S4 Object with a token and a base_url.
@@ -56,7 +28,9 @@ acyrsa_connection <- function(token, base_url) {
 #' \itemize{
 #' \item \code{token(conn)}
 #' \item \code{base_url(conn)}
-#' \item \code{valid_until(conn)}
+#' \item \code{login_date_time(conn)}
+#' \item \code{agent(conn)}
+#' \item \code{user_name(conn)}
 #' }
 #'
 #' @family connection functions
@@ -73,9 +47,7 @@ acyrsa_login <- function(user, pass, env) {
   # Base URL
   base_url <- glue('https://{env}.anywhereportfolio.com.ar/')
 
-  url <- glue(base_url, "AuthToken/AuthToken")
-
-  query <- POST(url = url,
+  query <- POST(url = glue(base_url, "AuthToken/AuthToken"),
                 query = list(nombreUsuario = user,
                              password = pass))
 
@@ -85,7 +57,9 @@ acyrsa_login <- function(user, pass, env) {
   } else if (content(query)$Code == 200) {
     message(glue("Succesfully connected with rRofex to {base_url}..."))
 
-    invisible(acyrsa_connection(token = content(query)$Value, base_url = base_url))
+    invisible(acyrsa_connection(token = content(query)$Value,
+                                base_url = base_url,
+                                user_name = user))
 
   } else {
     message(glue("Something went wrong...
@@ -113,11 +87,12 @@ acyrsa_margenes <- function(connection, date = Sys.Date()) {
   if (!isS4(connection) || rev(class(connection)) != "acyRsaConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'acyRsaConnection'.")
   if (as.Date(connection@valid_until) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
 
-  if (!missing(date) & !.validate_date(date)) stop("Date must be given in the correct format")
+  if (!missing(date) & !.validate_fecha(date)) stop("Date must be given in the correct format")
 
   query <- GET(url = glue(connection@base_url, "PosTrade/MarginRequirementReport"),
                query = list(date = format.Date(date, "%Y%m%d")),
-               add_headers(.headers = c("Authorization" = glue("Token ", connection@token))))
+               add_headers(.headers = c("Authorization" = glue("Token ", connection@token))),
+               user_agent(connection@agent))
 
   if (status_code(query) != 200) {
     warn_for_status(query)
@@ -164,13 +139,14 @@ acyrsa_garantias_integradas <- function(connection, cim, alyc, date = Sys.Date()
 
   if (missing(cim) | missing(alyc)) stop("Compensation Account Code and Clearing Member Code are needed.")
 
-  if (!missing(date) & !.validate_date(date)) stop("Date must be given in the correct format")
+  if (!missing(date) & !.validate_fecha(date)) stop("Date must be given in the correct format")
 
   query <- GET(url = glue(connection@base_url, "PosTrade/MT506"),
                query = list(date = format.Date(date, "%Y%m%d"),
                             cim = cim,
                             alyc = alyc),
-               add_headers(.headers = c("Authorization" = glue("Token ", connection@token))))
+               add_headers(.headers = c("Authorization" = glue("Token ", connection@token))),
+               user_agent(connection@agent))
 
   if (status_code(query) != 200) {
     warn_for_status(query)
@@ -261,7 +237,7 @@ acyrsa_cotizaciones <- function(connection, entry_type, date, Symbol, CFICode, M
   if (some(entry_type, ~ !.x %in% c("2", "3", "5", "6", "B", "C", "D"))) stop("'entry_type' parameter is invalid. See documentation.")
 
   if (missing(date)) stop("'date' parameter is required.")
-  if (!missing(date) & !.validate_date(date)) stop("Date must be given in the correct format.")
+  if (!missing(date) & !.validate_fecha(date)) stop("Date must be given in the correct format.")
 
   if (!missing(MarketID) && some(MarketID, ~ !.x %in% c("ROFX", "XMAB"))) stop("'MarketID' parameter is invalid. See documentation.")
 
@@ -279,7 +255,8 @@ acyrsa_cotizaciones <- function(connection, entry_type, date, Symbol, CFICode, M
                    as.list(match.call())[-c(1:4)]
                    ),
                  recursive = F),
-               add_headers(.headers = c("Authorization" = glue("Token ", connection@token))))
+               add_headers(.headers = c("Authorization" = glue("Token ", connection@token))),
+               user_agent(connection@agent))
 
   if (status_code(query) != 200) {
     warn_for_status(query)
@@ -288,9 +265,9 @@ acyrsa_cotizaciones <- function(connection, entry_type, date, Symbol, CFICode, M
 
     message_for_status(query)
 
-    data <- fromJSON(toJSON(content(query)$Value))
+    data <- fromJSON(toJSON(content(query), digits = NA))
 
-    data <- data %>%
+    data <- data$Value %>%
       mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
       unnest(Instrument) %>%
       mutate_all(., ~ replace_na(data = ., replace = NA)) %>%

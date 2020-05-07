@@ -8,7 +8,6 @@ reference:
 - title: Authentication
   desc:  Methods to obtain a valid token and/or generate a valid acyRsaConnection object.
 - contents:
-  - acyrsa_connection
   - acyrsa_login
 - title: Post Trade
 - contents:

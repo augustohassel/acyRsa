@@ -13,8 +13,8 @@ acyrsa_login(user, pass, env)
 
 \item{env}{String. \strong{Mandatory} Wich environment are you going to connect:
 \itemize{
-\item 'demoapi' for testing
-\item 'api' for production
+\item \strong{demoapi} - for testing
+\item \strong{api} - for production
 }}
 }
 \value{
@@ -32,7 +32,9 @@ You can use accesors to get information about the Object by using:
 \itemize{
 \item \code{token(conn)}
 \item \code{base_url(conn)}
-\item \code{valid_until(conn)}
+\item \code{login_date_time(conn)}
+\item \code{agent(conn)}
+\item \code{user_name(conn)}
 }
 }
 
@@ -40,9 +42,5 @@ You can use accesors to get information about the Object by using:
 \dontrun{
 conn <- acyrsa_login(user = "asd", pass = "xxx", env = "api")
 }
-}
-\seealso{
-Other connection functions: 
-\code{\link{acyrsa_connection}()}
 }
 \concept{connection functions}

@@ -4,3 +4,9 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^\.travis\.yml$
+cran-comments.md
+\.github
+README\.Rmd
+CODE_OF_CONDUCT\.md
+FUNDING\.yml
