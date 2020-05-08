@@ -9,6 +9,8 @@
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis build
 status](https://travis-ci.com/augustohassel/acyRsa.svg?branch=master)](https://travis-ci.com/augustohassel/acyRsa)
+[![R build
+status](https://github.com/augustohassel/acyRsa/workflows/R-CMD-check/badge.svg)](https://github.com/augustohassel/acyRsa/actions)
 <!-- badges: end -->
 
 This package lets you access ACyRSA’s API using R. This will enable you
