@@ -9,15 +9,15 @@ acyrsa_garantias_integradas(connection, cim, alyc, date = Sys.Date())
 \arguments{
 \item{connection}{S4. \strong{Mandatory} Formal acyRsaConnection class object}
 
-\item{cim}{Integer. Compensation Account Code}
+\item{cim}{Integer. \strong{Mandatory} Compensation Account Code}
 
-\item{alyc}{Integer.Clearing Member Code}
+\item{alyc}{Integer.\strong{Mandatory} Clearing Member Code}
 
 \item{date}{String. Date with format '\%Y-\%m-\%d'.}
 }
 \value{
-Data Frame
+A tibble.
 }
 \description{
-`acyrsa_garantias_integradas()` it's used to query the list of integrated garantees from our clients in ACyRSA.
+It is use to query the list of integrated garantees from our clients in ACyRSA.
 }

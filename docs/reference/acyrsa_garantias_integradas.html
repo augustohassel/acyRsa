@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Integrated Guarantees — acyrsa_garantias_integradas" />
-<meta property="og:description" content="`acyrsa_garantias_integradas()` it's used to query the list of integrated garantees from our clients in ACyRSA." />
+<meta property="og:description" content="It is use to query the list of integrated garantees from our clients in ACyRSA." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">acyRsa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
       </span>
     </div>
 
@@ -117,7 +117,7 @@
     </div>
 
     <div class="ref-description">
-    <p>`acyrsa_garantias_integradas()` it's used to query the list of integrated garantees from our clients in ACyRSA.</p>
+    <p>It is use to query the list of integrated garantees from our clients in ACyRSA.</p>
     </div>
 
     <pre class="usage"><span class='fu'>acyrsa_garantias_integradas</span>(<span class='no'>connection</span>, <span class='no'>cim</span>, <span class='no'>alyc</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>())</pre>
@@ -131,11 +131,11 @@
     </tr>
     <tr>
       <th>cim</th>
-      <td><p>Integer. Compensation Account Code</p></td>
+      <td><p>Integer. <strong>Mandatory</strong> Compensation Account Code</p></td>
     </tr>
     <tr>
       <th>alyc</th>
-      <td><p>Integer.Clearing Member Code</p></td>
+      <td><p>Integer.<strong>Mandatory</strong> Clearing Member Code</p></td>
     </tr>
     <tr>
       <th>date</th>
@@ -145,7 +145,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Data Frame</p>
+    <p>A tibble.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

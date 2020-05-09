@@ -1,7 +1,7 @@
 Package: acyRsa
 Type: Package
 Title: Interface to ACyRSA's API
-Version: 0.0.0.9008
+Version: 0.0.0.9009
 Authors@R: c(person("Augusto", "Hassel", role = c("aut", "cre"), email = "augusto.hassel@gmail.com"))
 Description: Provides a convenient wrapper for consuming data from ACyRSA's BackOffice API.
 License: MIT + file LICENSE

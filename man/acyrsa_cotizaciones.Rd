@@ -73,10 +73,10 @@ acyrsa_cotizaciones(
 }}
 }
 \value{
-Data Frame
+A tibble.
 }
 \description{
-`acyrsa_cotizaciones()` it's used to access Market Data from ACyRSA
+It is use to access Market Data from ACyRSA
 }
 \examples{
 \dontrun{

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Helper: Date validation — .validate_fecha • acyRsa</title>
+<title>Closing Proce — acyrsa_horario_procesos • acyRsa</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Helper: Date validation — .validate_fecha" />
-<meta property="og:description" content="Validate date" />
+<meta property="og:title" content="Closing Proce — acyrsa_horario_procesos" />
+<meta property="og:description" content="List all processes and it time stamp." />
 
 
 
@@ -111,29 +111,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Helper: Date validation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/augustohassel/acyRsa/blob/master/R/functions_helpers.R'><code>R/functions_helpers.R</code></a></small>
-    <div class="hidden name"><code>dot-validate_fecha.Rd</code></div>
+    <h1>Closing Proce</h1>
+    <small class="dont-index">Source: <a href='https://github.com/augustohassel/acyRsa/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
+    <div class="hidden name"><code>acyrsa_horario_procesos.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Validate date</p>
+    <p>List all processes and it time stamp.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>.validate_fecha</span>(<span class='no'>date</span>)</pre>
+    <pre class="usage"><span class='fu'>acyrsa_horario_procesos</span>(<span class='no'>connection</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>(), <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>connection</th>
+      <td><p>S4. <strong>Mandatory</strong> Formal acyRsaConnection class object</p></td>
+    </tr>
+    <tr>
       <th>date</th>
-      <td><p>Date</p></td>
+      <td><p>String. Date with format '%Y-%m-%d'.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>Integer. Type of process. If 'NULL' (default) is all.</p><ul>
+<li><p><strong>1</strong> - 'Pasaje a definitivo'</p></li>
+<li><p><strong>2</strong> - 'Calculo de margenes y garantias'</p></li>
+<li><p><strong>11</strong> - 'Actualizacion de activos'</p></li>
+<li><p><strong>16</strong> - 'Facturacion de comisiones, bonificaciones y servicios'</p></li>
+<li><p><strong>19</strong> - 'Publicacion de indice accionario'</p></li>
+<li><p><strong>21</strong> - 'Movimientos de custodia'</p></li>
+<li><p><strong>22</strong> - 'Publicacion del porfolio'</p></li>
+<li><p><strong>23</strong> - 'Publicacion de ajustes'</p></li>
+</ul></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>TRUE if date has a correct format.</p>
+    <p>A tibble.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

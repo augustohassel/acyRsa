@@ -9,8 +9,16 @@ reference:
   desc:  Methods to obtain a valid token and/or generate a valid acyRsaConnection object.
 - contents:
   - acyrsa_login
-- title: Post Trade
+- title: Administrative
 - contents:
-  - acyrsa_cotizaciones
+  - acyrsa_horario_procesos
+  - acyrsa_cuentas
+- title: Operative
+- contents:
   - acyrsa_margenes
   - acyrsa_garantias_integradas
+  - acyrsa_activos_aceptados
+- title: Market Data
+- contents:
+  - acyrsa_cotizaciones
+

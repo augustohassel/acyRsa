@@ -21,7 +21,7 @@ acyrsa_login(user, pass, env)
 Creates an 'acyRsaConnection' S4 Object with a token and a base_url.
 }
 \description{
-`acyrsa_login()` it's used to Log-in and obtained a valid token tthat then should be used in all requests to the API.
+It is use to Log-in and obtained a valid token tthat then should be used in all requests to the API.
 }
 \note{
 The token is valid only for a day.

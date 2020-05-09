@@ -1,3 +1,9 @@
+## acyRsa 0.0.0.9009
+
+### Changes
+
+* New Methods: `acyrsa_activos_aceptados()`, `acyrsa_horario_procesos()` and `acyrsa_cuentas()`
+
 ## acyRsa 0.0.0.9007
 
 ### Changes
@@ -22,7 +28,6 @@
 
 ### New Methods
 
-* `acyrsa_connection()`
 * `acyrsa_login()`
 * `acyrsa_margenes()`
 * `acyrsa_garantias_integradas()`

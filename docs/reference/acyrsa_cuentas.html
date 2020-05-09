@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Helper: Date validation — .validate_fecha • acyRsa</title>
+<title>Depositary Account List — acyrsa_cuentas • acyRsa</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Helper: Date validation — .validate_fecha" />
-<meta property="og:description" content="Validate date" />
+<meta property="og:title" content="Depositary Account List — acyrsa_cuentas" />
+<meta property="og:description" content="Brings a list with information of the accounts owned by the broker." />
 
 
 
@@ -111,29 +111,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Helper: Date validation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/augustohassel/acyRsa/blob/master/R/functions_helpers.R'><code>R/functions_helpers.R</code></a></small>
-    <div class="hidden name"><code>dot-validate_fecha.Rd</code></div>
+    <h1>Depositary Account List</h1>
+    <small class="dont-index">Source: <a href='https://github.com/augustohassel/acyRsa/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
+    <div class="hidden name"><code>acyrsa_cuentas.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Validate date</p>
+    <p>Brings a list with information of the accounts owned by the broker.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>.validate_fecha</span>(<span class='no'>date</span>)</pre>
+    <pre class="usage"><span class='fu'>acyrsa_cuentas</span>(<span class='no'>connection</span>, <span class='kw'>market_account</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>date</th>
-      <td><p>Date</p></td>
+      <th>connection</th>
+      <td><p>S4. <strong>Mandatory</strong> Formal acyRsaConnection class object</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>TRUE if date has a correct format.</p>
+    <p>A tibble.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

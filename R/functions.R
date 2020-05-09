@@ -1,15 +1,21 @@
 #' @export acyrsa_login
+#' @export acyrsa_horario_procesos
+#' @export acyrsa_cuentas
 #' @export acyrsa_margenes
 #' @export acyrsa_garantias_integradas
+#' @export acyrsa_activos_aceptados
 #' @export acyrsa_cotizaciones
+
 NULL
 
 #' @include s4_object.R
 #' NULL
 
+# 1 :-- Authentication -----
+
 #' @title Log-in Method
 #'
-#' @description `acyrsa_login()` it's used to Log-in and obtained a valid token tthat then should be used in all requests to the API.
+#' @description It is use to Log-in and obtained a valid token tthat then should be used in all requests to the API.
 #'
 #' @param user String. \strong{Mandatory} User Name
 #' @param pass String. \strong{Mandatory} Password
@@ -72,15 +78,142 @@ acyrsa_login <- function(user, pass, env) {
 
 }
 
+# 2 :-- Administrative -----
+
+#' @title Closing Proce
+#'
+#' @description List all processes and it time stamp.
+#'
+#' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
+#' @param date String. Date with format '\%Y-\%m-\%d'.
+#' @param type Integer. Type of process. If 'NULL' (default) is all.
+#' \itemize{
+#' \item \strong{1} - 'Pasaje a definitivo'
+#' \item \strong{2} - 'Calculo de margenes y garantias'
+#' \item \strong{11} - 'Actualizacion de activos'
+#' \item \strong{16} - 'Facturacion de comisiones, bonificaciones y servicios'
+#' \item \strong{19} - 'Publicacion de indice accionario'
+#' \item \strong{21} - 'Movimientos de custodia'
+#' \item \strong{22} - 'Publicacion del porfolio'
+#' \item \strong{23} - 'Publicacion de ajustes'
+#' }
+#'
+#' @return A tibble.
+acyrsa_horario_procesos <- function(connection, date = Sys.Date(), type = NULL) {
+
+  if (missing(connection)) stop("Connection cannot be empty.")
+  if (!isS4(connection) || rev(class(connection)) != "acyRsaConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'acyRsaConnection'.")
+  if (as.Date(connection@valid_until) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+
+  if (!missing(date) & !.validate_fecha(date)) stop("Date must be given in the correct format")
+
+  query <- GET(url = glue(connection@base_url, "PosTrade/ClosingProcesses"),
+               query = list(
+                 EntryDate = format.Date(date, "%Y%m%d"),
+                 ProcessTypeCode = type
+                 ),
+               add_headers(.headers = c("Authorization" = glue("Token ", connection@token))),
+               user_agent(connection@agent))
+
+  if (status_code(query) != 200) {
+
+    warn_for_status(query)
+    message("\r")
+    data <- NULL
+
+  } else if  (content(query)$Status != "OK") {
+
+    message(glue('Something wrong. See details:\n',
+                 'Info: {message}\n',
+                 '{description}',
+                 message = content(query)$ErrorMessage,
+                 description = content(query)$ErrorDescription))
+    data <- NULL
+
+  } else if (content(query)$Status == "OK") {
+
+    data <- fromJSON(toJSON(content(query), null = "null", auto_unbox = TRUE, digits = NA))
+
+    data <- data$Value %>%
+      map(.x = ., ~ bind_rows(.x)) %>%
+      unlist(recursive = F) %>%
+      as_tibble() %>%
+      rename_all(.tbl = ., .funs = list(~gsub(pattern = "(.+\\.)(.+)", replacement = "\\2", x = .))) %>%
+      unnest(Entries) %>%
+      mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
+      mutate(
+        DateTime = as.POSIXct(x = paste0(EntryDate, " ", EntryTime), tz = "America/Buenos_Aires")
+      ) %>%
+      select(-c(EntryDate, EntryTime))
+
+  }
+
+  return(data)
+
+}
+
+#' @title Depositary Account List
+#'
+#' @description Brings a list with information of the accounts owned by the broker.
+#'
+#' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
+#' @param market_account Logical.
+#' \item \strong{TRUE} - Third party accounts
+#' \item \strong{FALSE} - Owned accounts
+#' }
+#'
+#' @return A tibble.
+acyrsa_cuentas <- function(connection, market_account = TRUE) {
+
+  if (missing(connection)) stop("Connection cannot be empty.")
+  if (!isS4(connection) || rev(class(connection)) != "acyRsaConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'acyRsaConnection'.")
+  if (as.Date(connection@valid_until) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+
+  query <- GET(url = glue(connection@base_url, "PosTrade/DepositaryAccountList"),
+               query = list(
+                 MarketAccount = market_account
+               ),
+               add_headers(.headers = c("Authorization" = glue("Token ", connection@token))),
+               user_agent(connection@agent))
+
+  if (status_code(query) != 200) {
+
+    warn_for_status(query)
+    message("\r")
+    data <- NULL
+
+  } else if  (content(query)$Status != "OK") {
+
+    message(glue('Something wrong. See details:\n',
+                 'Info: {message}\n',
+                 '{description}',
+                 message = content(query)$ErrorMessage,
+                 description = content(query)$ErrorDescription))
+    data <- NULL
+
+  } else if (content(query)$Status == "OK") {
+
+    data <- fromJSON(toJSON(content(query), null = "null", auto_unbox = TRUE, digits = NA))
+
+    data <- data$Value %>%
+      as_tibble()
+
+  }
+
+  return(data)
+
+}
+
+# 3 :-- Operative -----
 
 #' @title Margin Requirement Report
 #'
-#' @description `acyrsa_margenes()` it's used to query the required margins for a certain date.
+#' @description It is use to query the required margins for a certain date.
 #'
 #' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
 #' @param date String. Date with format '\%Y-\%m-\%d'.
 #'
-#' @return Data Frame
+#' @return A tibble.
 acyrsa_margenes <- function(connection, date = Sys.Date()) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
@@ -95,14 +228,25 @@ acyrsa_margenes <- function(connection, date = Sys.Date()) {
                user_agent(connection@agent))
 
   if (status_code(query) != 200) {
+
     warn_for_status(query)
-    NULL
-  } else if (content(query)$Code == 200) {
-    message_for_status(query)
+    message("\r")
+    data <- NULL
 
-    data <- fromJSON(toJSON(content(query)$Value))
+  } else if  (content(query)$Status != "OK") {
 
-    data <- data %>%
+    message(glue('Something wrong. See details:\n',
+                 'Info: {message}\n',
+                 '{description}',
+                 message = content(query)$ErrorMessage,
+                 description = content(query)$ErrorDescription))
+    data <- NULL
+
+  } else if (content(query)$Status == "OK") {
+
+    data <- fromJSON(toJSON(content(query), null = "null", auto_unbox = TRUE, digits = NA))
+
+    data <- data$Value %>%
       unnest(Accounts) %>%
       mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
       unnest(SubAccounts) %>%
@@ -112,25 +256,22 @@ acyrsa_margenes <- function(connection, date = Sys.Date()) {
       simplify_all() %>%
       as_tibble()
 
-    return(data)
-
-  } else {
-    warning("Something went wrong...")
-    NULL
   }
+
+  return(data)
 
 }
 
 #' @title Integrated Guarantees
 #'
-#' @description `acyrsa_garantias_integradas()` it's used to query the list of integrated garantees from our clients in ACyRSA.
+#' @description It is use to query the list of integrated garantees from our clients in ACyRSA.
 #'
 #' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
 #' @param date String. Date with format '\%Y-\%m-\%d'.
-#' @param cim Integer. Compensation Account Code
-#' @param alyc Integer.Clearing Member Code
+#' @param cim Integer. \strong{Mandatory} Compensation Account Code
+#' @param alyc Integer.\strong{Mandatory} Clearing Member Code
 #'
-#' @return Data Frame
+#' @return A tibble.
 acyrsa_garantias_integradas <- function(connection, cim, alyc, date = Sys.Date()) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
@@ -149,32 +290,94 @@ acyrsa_garantias_integradas <- function(connection, cim, alyc, date = Sys.Date()
                user_agent(connection@agent))
 
   if (status_code(query) != 200) {
+
     warn_for_status(query)
-    NULL
-  } else if (content(query)$Code == 200) {
-    message_for_status(query)
+    message("\r")
+    data <- NULL
 
-    data <- fromJSON(toJSON(content(query)$Value))
+  } else if  (content(query)$Status != "OK") {
 
-    data <- data %>%
+    message(glue('Something wrong. See details:\n',
+                 'Info: {message}\n',
+                 '{description}',
+                 message = content(query)$ErrorMessage,
+                 description = content(query)$ErrorDescription))
+    data <- NULL
+
+  } else if (content(query)$Status == "OK") {
+
+    data <- fromJSON(toJSON(content(query), null = "null", auto_unbox = TRUE, digits = NA))
+
+    data <- data$Value %>%
       mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
       mutate_all(., unlist) %>%
       as_tibble() %>%
       separate(col = Party,
                into = c("CompensationAccountCode", "Comitente"), sep = "\\\\")
 
-    return(data)
-
-  } else {
-    warning("Something went wrong...")
-    NULL
   }
+
+  return(data)
 
 }
 
+#' @title Collateral List
+#'
+#' @description Brings a list of the products thar are currently accepted as collateral.
+#'
+#' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
+#' @param date String. Date with format '\%Y-\%m-\%d'.
+#'
+#' @return A tibble.
+acyrsa_activos_aceptados <- function(connection, date = Sys.Date()) {
+
+  if (missing(connection)) stop("Connection cannot be empty.")
+  if (!isS4(connection) || rev(class(connection)) != "acyRsaConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'acyRsaConnection'.")
+  if (as.Date(connection@valid_until) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+
+  if (!missing(date) & !.validate_fecha(date)) stop("Date must be given in the correct format")
+
+  query <- GET(url = glue(connection@base_url, "PosTrade/CollateralList"),
+               query = list(date = format.Date(date, "%Y%m%d")),
+               add_headers(.headers = c("Authorization" = glue("Token ", connection@token))),
+               user_agent(connection@agent))
+
+  if (status_code(query) != 200) {
+
+    warn_for_status(query)
+    message("\r")
+    data <- NULL
+
+  } else if  (content(query)$Status != "OK") {
+
+    message(glue('Something wrong. See details:\n',
+                 'Info: {message}\n',
+                 '{description}',
+                 message = content(query)$ErrorMessage,
+                 description = content(query)$ErrorDescription))
+    data <- NULL
+
+  } else if (content(query)$Status == "OK") {
+
+    data <- fromJSON(toJSON(content(query), null = "null", auto_unbox = TRUE, digits = NA))
+
+    data <- data$Value %>%
+      mutate(PriceDate = as.Date(PriceDate),
+             ExpirationDate = as.Date(PriceDate)
+             ) %>%
+      as_tibble()
+
+  }
+
+  return(data)
+
+}
+
+# 4 :-- Market Data -----
+
 #' @title Market Data
 #'
-#' @description `acyrsa_cotizaciones()` it's used to access Market Data from ACyRSA
+#' @description It is use to access Market Data from ACyRSA
 #'
 #' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
 #' @param entry_type String. \strong{Mandatory} Vector of one or many values. See allowed values:
@@ -221,7 +424,7 @@ acyrsa_garantias_integradas <- function(connection, cim, alyc, date = Sys.Date()
 #' \item \strong{4} = ISIN Number
 #' }
 #'
-#' @return Data Frame
+#' @return A tibble.
 #'
 #' @examples
 #' \dontrun{
@@ -259,11 +462,21 @@ acyrsa_cotizaciones <- function(connection, entry_type, date, Symbol, CFICode, M
                user_agent(connection@agent))
 
   if (status_code(query) != 200) {
-    warn_for_status(query)
-    NULL
-  } else if (content(query)$Code == 200 & length(content(query)$Value) > 0) {
 
-    message_for_status(query)
+    warn_for_status(query)
+    message("\r")
+    data <- NULL
+
+  } else if  (content(query)$Status != "OK") {
+
+    message(glue('Something wrong. See details:\n',
+                 'Info: {message}\n',
+                 '{description}',
+                 message = content(query)$ErrorMessage,
+                 description = content(query)$ErrorDescription))
+    data <- NULL
+
+  } else if (content(query)$Status == "OK" && length(content(query)$Value) > 0) {
 
     data <- fromJSON(toJSON(content(query), digits = NA))
 
@@ -276,14 +489,13 @@ acyrsa_cotizaciones <- function(connection, entry_type, date, Symbol, CFICode, M
       mutate_all(., unlist) %>%
       as_tibble()
 
-    return(data)
+  } else if (content(query)$Status == "OK" && length(content(query)$Value) == 0) {
 
-  } else if (content(query)$Code == 200 & length(content(query)$Value) == 0) {
-    warning("No data available...")
-    NULL
-  } else {
-    warning("Something went wrong...")
-    NULL
+    message("No data available...")
+    data <- NULL
+
   }
+
+  return(data)
 
 }
