@@ -8,6 +8,12 @@ acyrsa_cuentas(connection, market_account = TRUE)
 }
 \arguments{
 \item{connection}{S4. \strong{Mandatory} Formal acyRsaConnection class object}
+
+\item{market_account}{Logical. Type of market accounts.
+\itemize{
+\item \strong{TRUE} - Third party accounts
+\item \strong{FALSE} - Owned accounts
+}}
 }
 \value{
 A tibble.

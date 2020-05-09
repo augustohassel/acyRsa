@@ -157,7 +157,8 @@ acyrsa_horario_procesos <- function(connection, date = Sys.Date(), type = NULL) 
 #' @description Brings a list with information of the accounts owned by the broker.
 #'
 #' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
-#' @param market_account Logical.
+#' @param market_account Logical. Type of market accounts.
+#' \itemize{
 #' \item \strong{TRUE} - Third party accounts
 #' \item \strong{FALSE} - Owned accounts
 #' }
