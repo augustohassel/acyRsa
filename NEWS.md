@@ -1,3 +1,9 @@
+## acyRsa 0.0.0.9010
+
+### Changes
+
+* Exposed: `acyrsa_connection()` so anyonw can create one given a previously saved token.
+
 ## acyRsa 0.0.0.9009
 
 ### Changes
