@@ -5,11 +5,10 @@
 #' @export acyrsa_garantias_integradas
 #' @export acyrsa_activos_aceptados
 #' @export acyrsa_cotizaciones
-
 NULL
 
 #' @include s4_object.R
-#' NULL
+NULL
 
 # 1 :-- Authentication -----
 
@@ -61,7 +60,7 @@ acyrsa_login <- function(user, pass, env) {
     warn_for_status(query)
     NULL
   } else if (content(query)$Code == 200) {
-    message(glue("Succesfully connected with rRofex to {base_url}..."))
+    message(glue("Succesfully connected with acyRsa to {base_url}..."))
 
     invisible(acyrsa_connection(token = content(query)$Value,
                                 base_url = base_url,

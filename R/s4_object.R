@@ -99,7 +99,7 @@ setMethod("show", "acyRsaConnection", function(object){
 
 #' @title Create rRofex Connection Object
 #'
-#' @description \code{rRofex_connection} creates a New Connection Object.
+#' @description \code{acyRsaConnection} creates a New Connection Object.
 #'
 #' @param token String. \strong{Mandatory} Obtained with \code{\link{acyrsa_login}}
 #' @param base_url String. \strong{Mandatory} URL given by  \code{\link{acyrsa_login}} or known by the client.

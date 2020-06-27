@@ -17,7 +17,7 @@ acyrsa_connection(token, base_url, user_name)
 S4 acyRsaConnection object.
 }
 \description{
-\code{rRofex_connection} creates a New Connection Object.
+\code{acyRsaConnection} creates a New Connection Object.
 }
 \note{
 You can use accessors to get information about the Object by using:
