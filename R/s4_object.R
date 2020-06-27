@@ -3,6 +3,7 @@
 #' @export valid_until
 #' @export agent
 #' @export user_name
+#' @export acyrsa_connection
 NULL
 
 #' @title acyRsaConnection-method
