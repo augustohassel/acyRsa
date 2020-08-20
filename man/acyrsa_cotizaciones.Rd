@@ -14,7 +14,8 @@ acyrsa_cotizaciones(
   MarketSegmentID,
   SecurityGroup,
   SecurityType,
-  SecurityIDSource
+  SecurityIDSource,
+  Projected = TRUE
 )
 }
 \arguments{
@@ -71,6 +72,8 @@ acyrsa_cotizaciones(
 \itemize{
 \item \strong{4} = ISIN Number
 }}
+
+\item{Projected}{Boolean.}
 }
 \value{
 A tibble.

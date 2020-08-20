@@ -246,15 +246,20 @@ acyrsa_margenes <- function(connection, date = Sys.Date()) {
 
     data <- fromJSON(toJSON(content(query), null = "null", auto_unbox = TRUE, digits = NA))
 
-    data <- data$Value %>%
-      unnest(Accounts) %>%
-      mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
-      unnest(SubAccounts) %>%
-      mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
-      unnest(References) %>%
-      mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
-      simplify_all() %>%
-      as_tibble()
+    data <- if (is_empty(data$Value)) {
+      message("There is currently no data to be displayed.")
+      NULL
+    } else {
+      data$Value %>%
+        unnest(Accounts) %>%
+        mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
+        unnest(SubAccounts) %>%
+        mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
+        unnest(References) %>%
+        mutate_all(., ~ replace_na(data = ., replace = NA)) %>%
+        simplify_all() %>%
+        as_tibble()
+    }
 
   }
 
@@ -424,13 +429,15 @@ acyrsa_activos_aceptados <- function(connection, date = Sys.Date()) {
 #' \item \strong{4} = ISIN Number
 #' }
 #'
+#' @param Projected Boolean.
+#'
 #' @return A tibble.
 #'
 #' @examples
 #' \dontrun{
 #' acyrsa_cotizaciones(connection = conn, entry_type = 6, date = "2020-04-17", SecurityType = "FUT")
 #' }
-acyrsa_cotizaciones <- function(connection, entry_type, date, Symbol, CFICode, MarketID, MarketSegmentID, SecurityGroup, SecurityType, SecurityIDSource) {
+acyrsa_cotizaciones <- function(connection, entry_type, date, Symbol, CFICode, MarketID, MarketSegmentID, SecurityGroup, SecurityType, SecurityIDSource, Projected = TRUE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "acyRsaConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'acyRsaConnection'.")
