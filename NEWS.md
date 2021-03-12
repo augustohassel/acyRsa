@@ -1,10 +1,14 @@
+## v 0.0.0.9012
+
+* Added viewDetails parameter on `acyrsa_margenes()`
+
 ## v 0.0.0.9011
 
 * Fix issues #3 and #4
 
 ## v 0.0.0.9010
 
-* Exposed: `acyrsa_connection()` so anyonw can create one given a previously saved token.
+* Exposed: `acyrsa_connection()` so anyone can create one given a previously saved token.
 
 ## v 0.0.0.9009
 
