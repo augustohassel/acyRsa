@@ -212,9 +212,10 @@ acyrsa_cuentas <- function(connection, market_account = TRUE) {
 #'
 #' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
 #' @param date String. Date with format '\%Y-\%m-\%d'.
+#' @param viewDetails Logical. With or without breakdown.
 #'
 #' @return A tibble.
-acyrsa_margenes <- function(connection, date = Sys.Date()) {
+acyrsa_margenes <- function(connection, date = Sys.Date(), viewDetails = FALSE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "acyRsaConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'acyRsaConnection'.")
@@ -222,10 +223,15 @@ acyrsa_margenes <- function(connection, date = Sys.Date()) {
 
   if (!missing(date) & !.validate_fecha(date)) stop("Date must be given in the correct format")
 
-  query <- GET(url = glue(connection@base_url, "PosTrade/MarginRequirementReport"),
-               query = list(date = format.Date(date, "%Y%m%d")),
-               add_headers(.headers = c("Authorization" = glue("Token ", connection@token))),
-               user_agent(connection@agent))
+  query <- GET(
+    url = glue(connection@base_url, "PosTrade/MarginRequirementReport"),
+    query = list(
+      date = format.Date(date, "%Y%m%d"),
+      viewDetails = viewDetails
+      ),
+    add_headers(.headers = c("Authorization" = glue("Token ", connection@token))),
+    user_agent(connection@agent)
+    )
 
   if (status_code(query) != 200) {
 

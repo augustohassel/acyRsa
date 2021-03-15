@@ -4,12 +4,14 @@
 \alias{acyrsa_margenes}
 \title{Margin Requirement Report}
 \usage{
-acyrsa_margenes(connection, date = Sys.Date())
+acyrsa_margenes(connection, date = Sys.Date(), viewDetails = FALSE)
 }
 \arguments{
 \item{connection}{S4. \strong{Mandatory} Formal acyRsaConnection class object}
 
 \item{date}{String. Date with format '\%Y-\%m-\%d'.}
+
+\item{viewDetails}{Logical. With or without breakdown.}
 }
 \value{
 A tibble.
