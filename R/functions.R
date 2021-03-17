@@ -204,6 +204,50 @@ acyrsa_cuentas <- function(connection, market_account = TRUE) {
 
 }
 
+#' @title Security List
+#'
+#' @description Method that provides tradable securities at Matba Rofex.
+#'
+#' @param connection S4. \strong{Mandatory} Formal acyRsaConnection class object
+#' @param SecurityIDSource String. \strong{Mandatory} When MarketID = ROFX values can be M or 4, while MarketID = ACSA, then H or 4. Allowed values:
+#' \itemize{
+#' \item \strong{4} = ISIN Number
+#' \item \strong{M} = Market
+#' \item \strong{H} = Clearing House
+#' }
+#' @param SecurityType String. Allowed values:
+#' \itemize{
+#' \item \strong{FUT} = Future
+#' \item \strong{OPT} = Option
+#' \item \strong{FXSPOT} = FX Spot
+#' \item \strong{CFD} = Contract for differences
+#' \item \strong{CS} = Common Stock
+#' \item \strong{SECLOAN} = Securities Loan
+#' \item \strong{CD} = Certificate of deposit
+#' \item \strong{GO} = General Obligation Bonds
+#' \item \strong{FXNDF} = Non-deliverable forward
+#' \item \strong{TD} = Time deposit
+#' \item \strong{MLEG} = Combinated operations
+#' }
+#' @param SecurityExchange String. Allowed values:
+#' \itemize{
+#' \item \strong{ROFX} = Matba Rofex
+#' \item \strong{XMAB} = MAE
+#' \item \strong{XROX} = Mervaros
+#' }
+#' @param SecurityGroup String.
+#' @param MarketID String. \strong{Mandatory} See allowed values:
+#' \itemize{
+#' \item \strong{ROFX} = Matba Rofex
+#' \item \strong{ACSA} = ACSA
+#' }
+#'
+#' @return A tibble.
+acyrsa_instrumentos <- function(connection, SecurityIDSource, SecurityType, SecurityExchange, SecurityGroup, MarketID) {
+  if (missing(connection)) stop("Connection cannot be empty.")
+  if (!isS4(connection) || rev(class(connection)) != "acyRsaConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'acyRsaConnection'.")
+}
+
 # 3 :-- Operative -----
 
 #' @title Margin Requirement Report
